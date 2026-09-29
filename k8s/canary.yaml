@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nyan-canary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nyan
+      track: canary
+  template:
+    metadata:
+      labels:
+        app: nyan
+        track: canary
+    spec:
+      containers:
+      - name: nyan
+        image: IMAGE_PLACEHOLDER
+        ports:
+        - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
